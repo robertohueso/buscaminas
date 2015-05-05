@@ -1,38 +1,27 @@
-struct Casilla{
-  bool abierta;
-  bool bomba;
-  bool marcada;
-};
+#include "tablero.h"
 
-class Tablero{
-private:
-  Casilla casillas[20][20];
-  int filas;
-  int columnas;
-public:
-  //Devuelve el número de filas del tablero
-  int Filas(){
-    return filas;
-  }
+//Métodos de la clase Tablero
 
-  //Devuelve el numero de columnas del tablero
-  int Columnas(){
-    return columnas;
-  }
+int Tablero::Filas(){
+  return filas;
+}
 
-  //Devuelve el objeto casilla en la posición correspondiente
-  Casilla ValoresCasilla(const int &fila, int columna){
+int Tablero::Columnas(){
+  return columnas;
+}
+
+Casilla Tablero::ValoresCasilla(const int &fila, const int &columna){
+  if(fila < filas && columna < columnas){
     return casillas[fila][columna];
   }
+}
 
-  //Modifica el valor de una casilla en la posición correspondiente
-  bool ModificaCasilla(const int &fila, const int &columna, const Casilla &casilla_nueva){
-    if(fila < filas && columna < columnas){
-      casillas[fila][columna] = casilla_nueva;
-      return true;
-    }
-    else{
-      return false;
-    }
+bool Tablero::ModificaCasilla(const int &fila, const int &columna, const Casilla &casilla_nueva){
+  if(fila < filas && columna < columnas){
+    casillas[fila][columna] = casilla_nueva;
+    return true;
   }
-};
+  else{
+    return false;
+  }
+}
