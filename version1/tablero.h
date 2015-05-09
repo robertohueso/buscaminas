@@ -11,6 +11,7 @@ private:
   int columnas;
 
 public:
+  Tablero(const int &filas, const int &columnas);
   //Devuelve el número de filas del tablero
   int Filas();
 
