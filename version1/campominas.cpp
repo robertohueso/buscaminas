@@ -54,3 +54,52 @@ bool CampoMinas::ComprobarPartidaGanada(){
   }
   return true;
 }
+
+bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
+  if(fila < tablero.Filas() && columna < tablero.Columnas()){
+    Casilla casilla_actual = ValoresCasilla(fila, columna);
+    if(casilla_actual.marcada == false){
+      casilla_actual.marcada = true;
+    }else{
+      casilla_actual.marcada = false;
+    }
+    return true;
+  }else{
+    return false;
+  }
+}
+
+bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
+  Casilla casilla_actual = ValoresCasilla(fila, columna);
+  if(casilla_actual.abierta == false && casilla_default.marcada== false){
+    casilla_actual.abierta == true;
+    if(this.NumeroBombasEntorno(fila, columna) == 0){
+      for(int i = fila-1; i <= fila+1; i++){
+        for(int j = columna-1; j <= columna+1; j++){
+            this.AbreCasilla(i, j);
+        }
+      }
+      return true;
+    }else{
+      return true;
+    }
+  }else{
+    return false;
+  }
+}
+
+int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
+  int numero_bombas = 0;
+  for(int i = fila-1; i <= fila+1; i++){
+    for(int j = columna-1; j <= columna+1; j++){
+      if(tablero.ValoresCasilla(i, j).bomba == true){
+        numero_bombas++;
+      }
+    }
+  }
+  return numero_bombas;
+}
+
+void CampoMinas::ImprimeTablero(){
+  
+}
