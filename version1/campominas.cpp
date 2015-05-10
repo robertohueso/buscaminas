@@ -1,5 +1,6 @@
 #include "campominas.h"
 #include <cstdlib>
+#include <iostream>
 
 CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_minas){
   Casilla casilla_default;
@@ -101,5 +102,45 @@ int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
 }
 
 void CampoMinas::ImprimeTablero(){
-  
+  int filas = tablero.Filas();
+  int columnas = tablero.Columnas();
+  int bombas_entorno;
+  Casilla casilla_actual;
+
+  for(int i = 0; i < filas; i++){
+    for(int j = 0; j < columnas; j++){
+      casilla_actual = tablero.ValoresCasilla(i, j);
+      if(casilla_actual.abierta == false)
+        cout << "*|";
+      else{
+        bombas_entorno = this.NumeroBombasEntorno(i, j);
+        if(bombas_entorno == 0)
+          cout << " |";
+        else
+          cout << bombas_entorno << "|";
+      }
+    }
+    cout << "\n";
+  }
+}
+
+void CampoMinas::ImprimeTablero(){
+  int filas = tablero.Filas();
+  int columnas = tablero.Columnas();
+  int bombas_entorno;
+  Casilla casilla_actual;
+
+  for(int i = 0; i < filas; i++){
+    for(int j = 0; j < columnas; j++){
+      casilla_actual = tablero.ValoresCasilla(i, j);
+        if(casilla_actual.bomba == true)
+          cout << "X|";
+        else{
+          bombas_entorno = this.NumeroBombasEntorno(i, j);
+          cout << bombas_entorno << "|";
+        }
+      }
+    }
+    cout << "\n";
+  }
 }

@@ -31,5 +31,8 @@ public:
   bool AbreCasilla(const int &fila, const int &columna);
 
   //Imprime el tablero formateado a través de cout
+  void ImprimeTablero();
 
+  //Imprime el tablero formateado a través de cout sin ocultar nada
+  void ImprimeTableroSinOcultar();
 };
