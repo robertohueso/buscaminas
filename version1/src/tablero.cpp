@@ -3,7 +3,7 @@
 //Métodos de la clase Tablero
 
 //Constructor
-Tablero(const int &filas_utiles, const int &columnas_utiles){
+Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
   filas = filas_utiles;
   columnas = columnas_utiles;
 }

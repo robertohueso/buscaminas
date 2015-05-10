@@ -2,23 +2,27 @@
 #include <cstdlib>
 #include <iostream>
 
-CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_minas){
+using namespace std;
+
+CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_minas)
+  :tablero(filas, columnas)
+{
+  //FIXME Problema constructor (Tablero) privado
   Casilla casilla_default;
   casilla_default.abierta = false;
   casilla_default.bomba = false;
   casilla_default.marcada = false;
-
   //Rellena las casillas con el valor por defecto
   for(int i = 0; i < filas; i++){
     for(int j = 0; j < columnas; j++){
-      ModificaCasilla(i, j, casilla_default);
+      tablero.ModificaCasilla(i, j, casilla_default);
     }
   }
 
   //Posiciona las minas aleatoriamente
   casilla_default.bomba = true;
   for(int i = 0; i < numero_minas; i++){
-    ModificaCasilla(rand()%tablero.Filas(), rand()%tablero.Columnas(), casilla_default);
+    tablero.ModificaCasilla(rand()%tablero.Filas(), rand()%tablero.Columnas(), casilla_default);
   }
 }
 
@@ -33,8 +37,8 @@ int CampoMinas::Columnas(){
 bool CampoMinas::ComprobarExplosion(){
   Casilla casilla_actual;
 
-  for(int i = 0; i < this.Filas(); i++){
-    for(int j = 0; j < this.Columnas(); j++){
+  for(int i = 0; i < tablero.Filas(); i++){
+    for(int j = 0; j < tablero.Columnas(); j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
       if(casilla_actual.bomba == true && casilla_actual.abierta == true)
         return true;
@@ -46,8 +50,8 @@ bool CampoMinas::ComprobarExplosion(){
 bool CampoMinas::ComprobarPartidaGanada(){
   Casilla casilla_actual;
 
-  for(int i = 0; i < this.Filas(); i++){
-    for(int j = 0; j < this.Columnas(); j++){
+  for(int i = 0; i < tablero.Filas(); i++){
+    for(int j = 0; j < tablero.Columnas(); j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
       if(casilla_actual.abierta == false && casilla_actual.bomba == false)
         return false;
@@ -58,7 +62,7 @@ bool CampoMinas::ComprobarPartidaGanada(){
 
 bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
   if(fila < tablero.Filas() && columna < tablero.Columnas()){
-    Casilla casilla_actual = ValoresCasilla(fila, columna);
+    Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
     if(casilla_actual.marcada == false){
       casilla_actual.marcada = true;
     }else{
@@ -71,13 +75,13 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 }
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
-  Casilla casilla_actual = ValoresCasilla(fila, columna);
-  if(casilla_actual.abierta == false && casilla_default.marcada== false){
+  Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+  if(casilla_actual.abierta == false && casilla_actual.marcada== false){
     casilla_actual.abierta == true;
-    if(this.NumeroBombasEntorno(fila, columna) == 0){
+    if(this->NumeroBombasEntorno(fila, columna) == 0){
       for(int i = fila-1; i <= fila+1; i++){
         for(int j = columna-1; j <= columna+1; j++){
-            this.AbreCasilla(i, j);
+            this->AbreCasilla(i, j);
         }
       }
       return true;
@@ -113,7 +117,7 @@ void CampoMinas::ImprimeTablero(){
       if(casilla_actual.abierta == false)
         cout << "*|";
       else{
-        bombas_entorno = this.NumeroBombasEntorno(i, j);
+        bombas_entorno = this->NumeroBombasEntorno(i, j);
         if(bombas_entorno == 0)
           cout << " |";
         else
@@ -124,7 +128,7 @@ void CampoMinas::ImprimeTablero(){
   }
 }
 
-void CampoMinas::ImprimeTablero(){
+void CampoMinas::ImprimeTableroSinOcultar(){
   int filas = tablero.Filas();
   int columnas = tablero.Columnas();
   int bombas_entorno;
@@ -136,11 +140,10 @@ void CampoMinas::ImprimeTablero(){
         if(casilla_actual.bomba == true)
           cout << "X|";
         else{
-          bombas_entorno = this.NumeroBombasEntorno(i, j);
+          bombas_entorno = this->NumeroBombasEntorno(i, j);
           cout << bombas_entorno << "|";
         }
       }
-    }
-    cout << "\n";
   }
+  cout << "\n";
 }

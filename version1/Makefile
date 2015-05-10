@@ -9,7 +9,7 @@ CXXFLAGS=-I$(INC)
 all: $(BIN)/buscaminas
 
 $(BIN)/buscaminas: $(OBJ)/campominas.o $(OBJ)/tablero.o
-	$(CC) $(OBJ)/campominas.o $(OBJ)/tablero.o -o $(BIN)/buscaminas
+	$(CC) $(CXXFLAGS) $(OBJ)/campominas.o $(OBJ)/tablero.o -o $(BIN)/buscaminas $(SRC)/buscaminas.cpp
 
 $(OBJ)/campominas.o: $(SRC)/campominas.cpp $(INC)/campominas.h $(OBJ)/tablero.o
 	$(CC) $(CFLAGS) $(CXXFLAGS) -o $(OBJ)/campominas.o $(SRC)/campominas.cpp

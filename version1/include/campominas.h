@@ -1,8 +1,9 @@
 #include "tablero.h"
+#include <iostream>
 
 class CampoMinas{
 private:
-  Tablero tablero(filas, columnas);
+  Tablero tablero;
 
   //Devuelve la cantidad de bombas que hay en el entorno
   //de una casilla
@@ -10,7 +11,7 @@ private:
 
 public:
   //Constructor del campo
-  CampoMinas CampoMinas(const int &filas, const int &columnas, const int &numero_minas);
+  CampoMinas(const int &filas, const int &columnas, const int &numero_minas);
 
   //Devuelve el numero de filas del campo
   int Filas();
