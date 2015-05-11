@@ -18,7 +18,9 @@ int Tablero::Columnas(){
 
 Casilla Tablero::ValoresCasilla(const int &fila, const int &columna){
   if(fila < filas && columna < columnas){
-    return casillas[fila][columna];
+    if(fila >= 0 && columna >= 0){
+      return casillas[fila][columna];
+    }
   }
 }
 

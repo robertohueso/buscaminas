@@ -68,6 +68,7 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
     }else{
       casilla_actual.marcada = false;
     }
+    tablero.ModificaCasilla(fila, columna, casilla_actual);
     return true;
   }else{
     return false;
@@ -114,8 +115,12 @@ void CampoMinas::ImprimeTablero(){
   for(int i = 0; i < filas; i++){
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
-      if(casilla_actual.abierta == false)
-        cout << "*|";
+      if(casilla_actual.abierta == false){
+        if(casilla_actual.marcada == false)
+          cout << "*|";
+        else
+          cout << "?|";
+      }
       else{
         bombas_entorno = this->NumeroBombasEntorno(i, j);
         if(bombas_entorno == 0)
@@ -144,6 +149,6 @@ void CampoMinas::ImprimeTableroSinOcultar(){
           cout << bombas_entorno << "|";
         }
       }
+    cout << "\n";
   }
-  cout << "\n";
 }
