@@ -20,8 +20,15 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_
 
   //Posiciona las minas aleatoriamente
   casilla_default.bomba = true;
+  int aleatorio_fila;
+  int aleatorio_columna;
   for(int i = 0; i < numero_minas; i++){
-    tablero.ModificaCasilla(rand()%tablero.Filas(), rand()%tablero.Columnas(), casilla_default);
+    aleatorio_fila = rand()%tablero.Filas();
+    aleatorio_columna = rand()%tablero.Columnas();
+    if(tablero.ValoresCasilla(aleatorio_fila,aleatorio_columna).bomba == false)
+      tablero.ModificaCasilla(aleatorio_fila, aleatorio_columna, casilla_default);
+    else
+      i--;
   }
 }
 
@@ -146,7 +153,10 @@ void CampoMinas::ImprimeTableroSinOcultar(){
           cout << "X|";
         else{
           bombas_entorno = this->NumeroBombasEntorno(i, j);
-          cout << bombas_entorno << "|";
+          if(bombas_entorno == 0)
+            cout << " |";
+          else
+            cout << bombas_entorno << "|";
         }
       }
     cout << "\n";

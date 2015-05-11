@@ -30,7 +30,7 @@ int main(){
 
     if(accion == 'm')
       tablero.MarcaCasilla(filas,columnas);
-    else
+    else if(accion == 'a')
       tablero.AbreCasilla(filas, columnas);
     tablero.ImprimeTablero();
   }
