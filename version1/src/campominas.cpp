@@ -7,7 +7,6 @@ using namespace std;
 CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_minas)
   :tablero(filas, columnas)
 {
-  //FIXME Problema constructor (Tablero) privado
   Casilla casilla_default;
   casilla_default.abierta = false;
   casilla_default.bomba = false;
@@ -96,6 +95,7 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
 
 int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
   int numero_bombas = 0;
+
   for(int i = fila-1; i <= fila+1; i++){
     for(int j = columna-1; j <= columna+1; j++){
       if(tablero.ValoresCasilla(i, j).bomba == true){

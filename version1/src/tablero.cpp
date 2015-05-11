@@ -17,10 +17,14 @@ int Tablero::Columnas(){
 }
 
 Casilla Tablero::ValoresCasilla(const int &fila, const int &columna){
-  if(fila < filas && columna < columnas){
-    if(fila >= 0 && columna >= 0){
-      return casillas[fila][columna];
-    }
+  Casilla casilla_default;
+  casilla_default.bomba = false;
+  casilla_default.abierta = false;
+  casilla_default.marcada = false;
+  if((fila < filas && columna < columnas) && (fila >= 0 && columna >= 0)){
+    return casillas[fila][columna];
+  }else{
+    return casilla_default;
   }
 }
 
