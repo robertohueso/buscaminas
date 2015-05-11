@@ -1,3 +1,6 @@
+//Por Manuel Orantes Taboada
+//Por Roberto Hueso Gomez
+
 #include <iostream>
 #include "campominas.h"
 
