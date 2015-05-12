@@ -83,11 +83,13 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
   Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
-  if(casilla_actual.abierta == false && casilla_actual.marcada== false){
-    casilla_actual.abierta == true;
+  if(casilla_actual.abierta == false && casilla_actual.marcada == false){
+    casilla_actual.abierta = true;
+    tablero.ModificaCasilla(fila, columna, casilla_actual);
     if(this->NumeroBombasEntorno(fila, columna) == 0){
       for(int i = fila-1; i <= fila+1; i++){
         for(int j = columna-1; j <= columna+1; j++){
+          if((fila < tablero.Filas() && columna < tablero.Columnas()) && (fila > 0 && columna > 0))
             this->AbreCasilla(i, j);
         }
       }

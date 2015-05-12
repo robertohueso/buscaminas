@@ -38,7 +38,8 @@ int main(){
   if(tablero.ComprobarPartidaGanada()){
     cout << "\nFelicidades!";
   }else{
-    cout << "\nPerdiste!";
+    cout << "\nPerdiste!" ;
   }
+  cout << "\n";
   tablero.ImprimeTableroSinOcultar();
 }
