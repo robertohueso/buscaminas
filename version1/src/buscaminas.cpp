@@ -33,6 +33,8 @@ int main(){
       tablero.MarcaCasilla(filas,columnas);
     else if(accion == 'a')
       tablero.AbreCasilla(filas, columnas);
+    else
+      cout << "\nComando no válido!\n";
     tablero.ImprimeTablero();
   }
 
