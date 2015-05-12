@@ -89,7 +89,7 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
     if(this->NumeroBombasEntorno(fila, columna) == 0){
       for(int i = fila-1; i <= fila+1; i++){
         for(int j = columna-1; j <= columna+1; j++){
-          if((fila < tablero.Filas() && columna < tablero.Columnas()) && (fila > 0 && columna > 0))
+          if((i < tablero.Filas() && j < tablero.Columnas()) && (i >= 0 && j >= 0))
             this->AbreCasilla(i, j);
         }
       }
