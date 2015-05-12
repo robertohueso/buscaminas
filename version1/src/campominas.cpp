@@ -1,10 +1,11 @@
 #include "campominas.h"
 #include <cstdlib>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
-CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_minas)
+CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   :tablero(filas, columnas)
 {
   Casilla casilla_default;
@@ -18,10 +19,18 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, const int &numero_
     }
   }
 
+  //Criterio de maximos y minimos de minas
+  if(numero_minas < 5){
+    numero_minas = 5;
+  }else if(numero_minas > (filas*columnas)/2){
+    numero_minas = (filas*columnas)/2;
+  }
+
   //Posiciona las minas aleatoriamente
   casilla_default.bomba = true;
   int aleatorio_fila;
   int aleatorio_columna;
+  srand(time(NULL));
   for(int i = 0; i < numero_minas; i++){
     aleatorio_fila = rand()%tablero.Filas();
     aleatorio_columna = rand()%tablero.Columnas();
@@ -121,7 +130,13 @@ void CampoMinas::ImprimeTablero(){
   int bombas_entorno;
   Casilla casilla_actual;
 
+  cout << "    ";
   for(int i = 0; i < filas; i++){
+    cout << i << " ";
+  }
+  cout << "\n";
+  for(int i = 0; i < filas; i++){
+    cout << i << "->|";
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
       if(casilla_actual.abierta == false){

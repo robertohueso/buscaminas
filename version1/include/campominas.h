@@ -11,7 +11,7 @@ private:
 
 public:
   //Constructor del campo
-  CampoMinas(const int &filas, const int &columnas, const int &numero_minas);
+  CampoMinas(const int &filas, const int &columnas, int numero_minas);
 
   //Devuelve el numero de filas del campo
   int Filas();
