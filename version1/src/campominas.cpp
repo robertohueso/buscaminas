@@ -154,7 +154,7 @@ void CampoMinas::ImprimeTablero(){
         if(bombas_entorno == 0)
           cout << "   |";
         else
-          cout << bombas_entorno << "|";
+          cout << " " << bombas_entorno << " |";
         }
       }
 

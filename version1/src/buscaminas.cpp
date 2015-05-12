@@ -12,13 +12,14 @@ int main(){
 
   cout << "Introduzca las filas: ";
   cin >> filas;
-  cout << "\nIntroduzca las columnas: ";
+  cout << "Introduzca las columnas: ";
   cin >> columnas;
-  cout << "\nIntroduzca las minas: ";
+  cout << "Introduzca las minas: ";
   cin >> cantidad_bombas;
 
   CampoMinas tablero(filas, columnas, cantidad_bombas);
   tablero.ImprimeTablero();
+  cout << "\n\n";
   tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
     cout << "Introduzca acción: ";
@@ -36,9 +37,9 @@ int main(){
   }
 
   if(tablero.ComprobarPartidaGanada()){
-    cout << "\nFelicidades!";
+    cout << "\n¡Felicidades! ¡Has ganado!";
   }else{
-    cout << "\nPerdiste!" ;
+    cout << "\n¡Perdiste!" ;
   }
   cout << "\n";
   tablero.ImprimeTableroSinOcultar();
