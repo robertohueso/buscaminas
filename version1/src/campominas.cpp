@@ -5,6 +5,7 @@
 
 using namespace std;
 
+static const char *SIMBOLO_BOMBA = "💣";
 CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   :tablero(filas, columnas)
 {
@@ -132,7 +133,7 @@ void CampoMinas::ImprimeTablero(){
 
   cout << "    ";
   for(int i = 0; i < filas; i++){
-    cout << i << " ";
+    cout << " " << i << "  ";
   }
   cout << "\n";
   for(int i = 0; i < filas; i++){
@@ -141,17 +142,17 @@ void CampoMinas::ImprimeTablero(){
       casilla_actual = tablero.ValoresCasilla(i, j);
       if(casilla_actual.abierta == false){
         if(casilla_actual.marcada == false)
-          cout << "*|";
+          cout << " * |";
         else
-          cout << "?|";
+          cout << " ? |";
       }
       else{
         if(casilla_actual.bomba)
-          cout << "X|";
+          cout <<" "<< SIMBOLO_BOMBA <<" |";
         else{
         bombas_entorno = this->NumeroBombasEntorno(i, j);
         if(bombas_entorno == 0)
-          cout << " |";
+          cout << "   |";
         else
           cout << bombas_entorno << "|";
         }
@@ -172,13 +173,13 @@ void CampoMinas::ImprimeTableroSinOcultar(){
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
         if(casilla_actual.bomba == true)
-          cout << "X|";
+          cout << " " << SIMBOLO_BOMBA << " |";
         else{
           bombas_entorno = this->NumeroBombasEntorno(i, j);
           if(bombas_entorno == 0)
-            cout << " |";
+            cout << "   |";
           else
-            cout << bombas_entorno << "|";
+            cout << " " << bombas_entorno << " |";
         }
       }
     cout << "\n";
