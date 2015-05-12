@@ -13,8 +13,8 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   casilla_default.bomba = false;
   casilla_default.marcada = false;
   //Rellena las casillas con el valor por defecto
-  for(int i = 0; i < filas; i++){
-    for(int j = 0; j < columnas; j++){
+  for(int i = 0; i < tablero.Filas(); i++){
+    for(int j = 0; j < tablero.Columnas(); j++){
       tablero.ModificaCasilla(i, j, casilla_default);
     }
   }
