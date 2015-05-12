@@ -6,6 +6,10 @@
 Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
   filas = filas_utiles;
   columnas = columnas_utiles;
+  if(filas_utiles < 5)
+    filas = 5;
+  if(columnas_utiles < 5)
+    columnas = 5;
 }
 
 int Tablero::Filas(){
