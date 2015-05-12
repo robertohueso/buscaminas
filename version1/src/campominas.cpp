@@ -13,8 +13,8 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   casilla_default.bomba = false;
   casilla_default.marcada = false;
   //Rellena las casillas con el valor por defecto
-  for(int i = 0; i < tablero.Filas(); i++){
-    for(int j = 0; j < tablero.Columnas(); j++){
+  for(int i = 0; i < filas; i++){
+    for(int j = 0; j < columnas; j++){
       tablero.ModificaCasilla(i, j, casilla_default);
     }
   }
@@ -146,12 +146,17 @@ void CampoMinas::ImprimeTablero(){
           cout << "?|";
       }
       else{
+        if(casilla_actual.bomba)
+          cout << "X|";
+        else{
         bombas_entorno = this->NumeroBombasEntorno(i, j);
         if(bombas_entorno == 0)
           cout << " |";
         else
           cout << bombas_entorno << "|";
+        }
       }
+
     }
     cout << "\n";
   }
