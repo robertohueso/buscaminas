@@ -128,6 +128,10 @@ int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
       }
     }
   }
+  //--------------------------------------------------------------------
+  //FIXME: Cuenta una bomba de más en caso de explosión
+  //pero en principio no parece relevante para el programa.
+  //--------------------------------------------------------------------
   return numero_bombas;
 }
 
@@ -146,8 +150,8 @@ void CampoMinas::ImprimeTablero(){
     cout << i << "->|";
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
-      if(casilla_actual.abierta == false){
-        if(casilla_actual.marcada == false)
+      if(!casilla_actual.abierta){
+        if(!casilla_actual.marcada)
           cout << " * |";
         else
           cout << " ? |";
@@ -156,11 +160,11 @@ void CampoMinas::ImprimeTablero(){
         if(casilla_actual.bomba)
           cout <<" "<< SIMBOLO_BOMBA <<" |";
         else{
-        bombas_entorno = this->NumeroBombasEntorno(i, j);
-        if(bombas_entorno == 0)
-          cout << "   |";
-        else
-          cout << " " << bombas_entorno << " |";
+          bombas_entorno = this->NumeroBombasEntorno(i, j);
+          if(bombas_entorno == 0)
+            cout << "   |";
+          else
+            cout << " " << bombas_entorno << " |";
         }
       }
 
@@ -175,10 +179,16 @@ void CampoMinas::ImprimeTableroSinOcultar(){
   int bombas_entorno;
   Casilla casilla_actual;
 
+  cout << "    ";
+  for(int i = 0; i < columnas; i++){
+    cout << " " << i << "  ";
+  }
+  cout << "\n";
   for(int i = 0; i < filas; i++){
+    cout << i << "->|";
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
-        if(casilla_actual.bomba == true)
+        if(casilla_actual.bomba)
           cout << " " << SIMBOLO_BOMBA << " |";
         else{
           bombas_entorno = this->NumeroBombasEntorno(i, j);
