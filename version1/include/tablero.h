@@ -1,9 +1,11 @@
+//Datos de tipo Casilla
 struct Casilla{
   bool abierta;
   bool bomba;
   bool marcada;
 };
 
+//Datos de clase Tablero
 class Tablero{
 private:
   Casilla casillas[20][20];
