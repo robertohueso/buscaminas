@@ -86,7 +86,7 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
     }else{
       casilla_actual.marcada = false;
     }
-    
+
     //Comprueba que está en el rango de la tabla (Modifica casilla)
     if(tablero.ModificaCasilla(fila, columna, casilla_actual))
       return true;
@@ -98,23 +98,24 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
   Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+
   if(casilla_actual.abierta == false && casilla_actual.marcada == false){
     casilla_actual.abierta = true;
-    tablero.ModificaCasilla(fila, columna, casilla_actual);
-    if(this->NumeroBombasEntorno(fila, columna) == 0){
-      for(int i = fila-1; i <= fila+1; i++){
-        for(int j = columna-1; j <= columna+1; j++){
-          if((i < tablero.Filas() && j < tablero.Columnas()) && (i >= 0 && j >= 0))
+    //Comprueba que está en el rango de la tabla (Modifica casilla)
+    if(tablero.ModificaCasilla(fila, columna, casilla_actual)){
+      if(this->NumeroBombasEntorno(fila, columna) == 0){
+        for(int i = fila-1; i <= fila+1; i++){
+          for(int j = columna-1; j <= columna+1; j++){
             this->AbreCasilla(i, j);
+          }
         }
-      }
-      return true;
-    }else{
-      return true;
-    }
-  }else{
+        return true;
+      }else
+        return true;
+    }else
+      return false;
+  }else
     return false;
-  }
 }
 
 int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
