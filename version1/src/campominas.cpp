@@ -5,7 +5,9 @@
 
 using namespace std;
 
+//Símbolo UNICODE para una bomba.
 static const char *SIMBOLO_BOMBA = "💣";
+
 CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   :tablero(filas, columnas)
 {
@@ -27,18 +29,18 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
     numero_minas = (filas*columnas)/2;
   }
 
-  //Posiciona las minas aleatoriamente
-  casilla_default.bomba = true;
-  int aleatorio_fila;
-  int aleatorio_columna;
+  //Posiciona las minas aleatoriamente (Usa la librería ctime y cstdlib)
+  int aleatorio_fila, aleatorio_columna, i;
   srand(time(NULL));
-  for(int i = 0; i < numero_minas; i++){
+  casilla_default.bomba = true;
+  i = 0;
+  while(i < numero_minas){
     aleatorio_fila = rand()%tablero.Filas();
     aleatorio_columna = rand()%tablero.Columnas();
-    if(tablero.ValoresCasilla(aleatorio_fila,aleatorio_columna).bomba == false)
+    if(tablero.ValoresCasilla(aleatorio_fila,aleatorio_columna).bomba == false){
       tablero.ModificaCasilla(aleatorio_fila, aleatorio_columna, casilla_default);
-    else
-      i--;
+      i++;
+    }
   }
 }
 
@@ -77,18 +79,21 @@ bool CampoMinas::ComprobarPartidaGanada(){
 }
 
 bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
-  if(fila < tablero.Filas() && columna < tablero.Columnas()){
-    Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+  Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+  if(casilla_actual.abierta == false){
     if(casilla_actual.marcada == false){
       casilla_actual.marcada = true;
     }else{
       casilla_actual.marcada = false;
     }
-    tablero.ModificaCasilla(fila, columna, casilla_actual);
-    return true;
-  }else{
+    
+    //Comprueba que está en el rango de la tabla (Modifica casilla)
+    if(tablero.ModificaCasilla(fila, columna, casilla_actual))
+      return true;
+    else
+      return false;
+  }else
     return false;
-  }
 }
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
