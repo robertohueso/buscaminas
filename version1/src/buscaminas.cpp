@@ -10,10 +10,9 @@ int main(){
   int filas, columnas, cantidad_bombas;
   char accion;
 
-  cout << "Introduzca las filas: ";
-  cin >> filas;
-  cout << "Introduzca las columnas: ";
-  cin >> columnas;
+  cout << "Introduzca la dimensión (Filas y columnas): ";
+  //Lee filas y columnas separadas por un espacio.
+  cin >> filas >> columnas;
   cout << "Introduzca las minas: ";
   cin >> cantidad_bombas;
 
@@ -22,19 +21,15 @@ int main(){
   cout << "\n\n";
   tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
-    cout << "Introduzca acción: ";
-    cin >> accion;
-    cout << "Introduzca fila: ";
-    cin >> filas;
-    cout << "Introduzca columna: ";
-    cin >> columnas;
+    cout << "Introduzca acción (a/m) y posición (fila columna): ";
+    cin >> accion >> filas >> columnas;
 
     if(accion == 'm')
       tablero.MarcaCasilla(filas,columnas);
     else if(accion == 'a')
       tablero.AbreCasilla(filas, columnas);
     else
-      cout << "\nComando no válido!\n";
+      cout << "\n¡Comando no válido!\n";
     tablero.ImprimeTablero();
   }
 

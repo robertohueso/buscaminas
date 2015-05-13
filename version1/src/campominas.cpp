@@ -132,7 +132,7 @@ void CampoMinas::ImprimeTablero(){
   Casilla casilla_actual;
 
   cout << "    ";
-  for(int i = 0; i < filas; i++){
+  for(int i = 0; i < columnas; i++){
     cout << " " << i << "  ";
   }
   cout << "\n";
