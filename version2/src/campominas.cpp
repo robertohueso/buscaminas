@@ -103,56 +103,41 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 }
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
+  Casilla casilla_abierta;
   CeldaPosicion *pend = new CeldaPosicion;
   pend->fila = fila;
   pend->columna = columna;
-  pend->siguiente_celda = 0;
-
-  if(this->NumeroBombasEntorno(pend->fila, pend->columna) == 0){
-    CeldaPosicion *aux = new CeldaPosicion;
-    for(int i = fila - 1; i <= fila; i++){
-      for(int j = columna - 1; i <= columna; j++){
-        CeldaPosicion *aux = new CeldaPosicion;
-        aux->fila = i;
-        aux->columna = j;
-        aux->siguiente_celda = pend;
-        pend = aux;
-        aux = pend->siguiente_celda;        
-      }
-    }
-  }
+  pend->siguiente_celda = NULL;
 
   while(pend != NULL){
-    CeldaPosicion *aux;
-    int fila_actual, columna_actual;
-    fila_actual = pend->fila;
-    columna_actual = pend->columna;
-    Casilla casilla1 = tablero.ValoresCasilla(fila_actual, columna_actual);
-    casilla1.abierta = true;
-    tablero.ModificaCasilla(fila_actual, columna_actual, casilla1);
-
-    if(this -> NumeroBombasEntorno(fila_actual, columna_actual) == 0){
-      for(int i = fila_actual-1; i <= fila_actual + 1; i++){
-        for(int j = columna_actual-1; j <= columna_actual + 1; j++){
-            if( i < tablero.Filas() && j < tablero.Columnas() && (i >= 0) && (j >= 0) && i != pend->fila && j != pend->columna){
-              aux = new CeldaPosicion;
-              aux->fila = i;
-              aux->columna = j;
-              pend->siguiente_celda = aux;
-            }
+    int f = pend->fila;
+    int c = pend->columna;
+    if(this->NumeroBombasEntorno(f,c) != 0){
+      casilla_abierta = tablero.ValoresCasilla(f,c);
+      casilla_abierta.abierta = true;
+      tablero.ModificaCasilla(f, c, casilla_abierta);
+      CeldaPosicion *aux = pend;
+      pend = pend->siguiente_celda;
+      delete aux;
+    }else{
+      casilla_abierta = tablero.ValoresCasilla(f,c);
+      casilla_abierta.abierta = true;
+      tablero.ModificaCasilla(f, c, casilla_abierta);
+      CeldaPosicion *aux = pend;
+      pend = pend->siguiente_celda;
+      delete aux;
+      for(int i = f-1; i <= f+1; i++){
+        for(int j = c-1; j <= c+1; j++){
+          if((i >= 0) && (j >= 0) && (i < tablero.Filas()) && (j < tablero.Columnas()) && (tablero.ValoresCasilla(i,j).abierta == false)){
+            CeldaPosicion *aux = new CeldaPosicion;
+            aux->fila = i;
+            aux->columna = j;
+            aux->siguiente_celda = pend;
+            pend = aux;
+          }
         }
       }
-    }else
-      pend = NULL;
-  }
-
-  while(pend->siguiente_celda != NULL){
-    int i, j;
-
-
-    Casilla casilla1 = tablero.ValoresCasilla(i,j);
-    casilla1.abierta = true;
-    tablero.ModificaCasilla(i, j, casilla1);
+    }
   }
   return true;
 }
