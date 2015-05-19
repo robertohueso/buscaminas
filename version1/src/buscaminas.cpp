@@ -19,7 +19,6 @@ int main(){
   CampoMinas tablero(filas, columnas, cantidad_bombas);
   tablero.ImprimeTablero();
   cout << "\n\n";
-  tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
     cout << "Introduzca acción (a/m) y posición (fila columna): ";
     cin >> accion >> filas >> columnas;
@@ -36,7 +35,7 @@ int main(){
   if(tablero.ComprobarPartidaGanada()){
     cout << "\n¡Felicidades! ¡Has ganado!";
   }else{
-    cout << "\n¡Perdiste!" ;
+    cout << "\n¡Perdiste!";
   }
   cout << "\n";
   tablero.ImprimeTableroSinOcultar();
