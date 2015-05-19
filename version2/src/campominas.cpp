@@ -8,6 +8,12 @@ using namespace std;
 //Símbolo UNICODE para una bomba.
 static const char *SIMBOLO_BOMBA = "💣";
 
+struct CeldaPosicion{
+  int fila;
+  int columna;
+  CeldaPosicion *siguiente_celda;
+};
+
 CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   :tablero(filas, columnas)
 {
@@ -97,25 +103,58 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 }
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
-  Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+  CeldaPosicion *pend = new CeldaPosicion;
+  pend->fila = fila;
+  pend->columna = columna;
+  pend->siguiente_celda = 0;
 
-  if(casilla_actual.abierta == false && casilla_actual.marcada == false){
-    casilla_actual.abierta = true;
-    //Comprueba que está en el rango de la tabla (Modifica casilla)
-    if(tablero.ModificaCasilla(fila, columna, casilla_actual)){
-      if(this->NumeroBombasEntorno(fila, columna) == 0){
-        for(int i = fila-1; i <= fila+1; i++){
-          for(int j = columna-1; j <= columna+1; j++){
-            this->AbreCasilla(i, j);
-          }
+  if(this->NumeroBombasEntorno(pend->fila, pend->columna) == 0){
+    CeldaPosicion *aux = new CeldaPosicion;
+    for(int i = fila - 1; i <= fila; i++){
+      for(int j = columna - 1; i <= columna; j++){
+        CeldaPosicion *aux = new CeldaPosicion;
+        aux->fila = i;
+        aux->columna = j;
+        aux->siguiente_celda = pend;
+        pend = aux;
+        aux = pend->siguiente_celda;        
+      }
+    }
+  }
+
+  while(pend != NULL){
+    CeldaPosicion *aux;
+    int fila_actual, columna_actual;
+    fila_actual = pend->fila;
+    columna_actual = pend->columna;
+    Casilla casilla1 = tablero.ValoresCasilla(fila_actual, columna_actual);
+    casilla1.abierta = true;
+    tablero.ModificaCasilla(fila_actual, columna_actual, casilla1);
+
+    if(this -> NumeroBombasEntorno(fila_actual, columna_actual) == 0){
+      for(int i = fila_actual-1; i <= fila_actual + 1; i++){
+        for(int j = columna_actual-1; j <= columna_actual + 1; j++){
+            if( i < tablero.Filas() && j < tablero.Columnas() && (i >= 0) && (j >= 0) && i != pend->fila && j != pend->columna){
+              aux = new CeldaPosicion;
+              aux->fila = i;
+              aux->columna = j;
+              pend->siguiente_celda = aux;
+            }
         }
-        return true;
-      }else
-        return true;
+      }
     }else
-      return false;
-  }else
-    return false;
+      pend = NULL;
+  }
+
+  while(pend->siguiente_celda != NULL){
+    int i, j;
+
+
+    Casilla casilla1 = tablero.ValoresCasilla(i,j);
+    casilla1.abierta = true;
+    tablero.ModificaCasilla(i, j, casilla1);
+  }
+  return true;
 }
 
 int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){

@@ -19,6 +19,7 @@ int main(){
   CampoMinas tablero(filas, columnas, cantidad_bombas);
   tablero.ImprimeTablero();
   cout << "\n\n";
+  tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
     cout << "Introduzca acción (a/m) y posición (fila columna): ";
     cin >> accion >> filas >> columnas;
