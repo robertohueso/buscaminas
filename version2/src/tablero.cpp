@@ -10,17 +10,63 @@ Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
     filas = 5;
   if(columnas_utiles < 5)
     columnas = 5;
+  //Reserva memoria y crea la matriz de Casillas
+  casillas = new Casilla*[filas];
+  for(int i = 0; i < columnas; i++)
+    casillas[i] = new Casilla;
 }
 
-int Tablero::Filas(){
+//Destructor
+Tablero::~Tablero(){
+  for(int i = 0; i < columnas; i++)
+    delete[] casillas[i];
+  delete[] casillas;
+}
+
+//Constructor de copia
+Tablero::Tablero(const Tablero &tablero_input){
+  filas = tablero_input.Filas();
+  columnas = tablero_input.Columnas();
+
+  casillas = new Casilla*[filas];
+  for(int i = 0; i < columnas; i++)
+    casillas[i] = new Casilla;
+
+  for(int i = 0; i < filas; i++)
+    for(int j = 0; j < columnas; j++)
+      casillas[i][j] = tablero_input.ValoresCasilla(i,j);
+}
+
+//Sobrecarga del operador de asignacion
+Tablero& Tablero::operator=(const Tablero &tablero_input){
+  //Vaciamos la memoria
+  for(int i = 0; i < this->columnas; i++)
+    delete[] this->casillas[i];
+  delete[] this->casillas;
+
+  //Rellenamos con tablero_input
+  this->filas = tablero_input.Filas();
+  this->columnas = tablero_input.Columnas();
+  this->casillas = new Casilla*[filas];
+  for(int i = 0; i < columnas; i++)
+    this->casillas[i] = new Casilla;
+
+  for(int i = 0; i < filas; i++)
+    for(int j = 0; j < columnas; j++)
+      this->casillas[i][j] = tablero_input.ValoresCasilla(i,j);
+
+  return *this;
+}
+
+int Tablero::Filas() const{
   return filas;
 }
 
-int Tablero::Columnas(){
+int Tablero::Columnas() const{
   return columnas;
 }
 
-Casilla Tablero::ValoresCasilla(const int &fila, const int &columna){
+Casilla Tablero::ValoresCasilla(const int &fila, const int &columna) const{
   //Defino una casilla por defecto que será devuelta
   //en caso de que los valores fila o columna
   //no sean válidos.
