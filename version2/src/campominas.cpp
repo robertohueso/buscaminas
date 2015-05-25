@@ -159,41 +159,41 @@ int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
   return numero_bombas;
 }
 
-void CampoMinas::ImprimeTablero(){
+void CampoMinas::ImprimeTablero(std::ostream& os){
   int filas = tablero.Filas();
   int columnas = tablero.Columnas();
   int bombas_entorno;
   Casilla casilla_actual;
 
-  cout << "    ";
+  os << "    ";
   for(int i = 0; i < columnas; i++){
-    cout << " " << i << "  ";
+    os << " " << i << "  ";
   }
-  cout << "\n";
+  os << "\n";
   for(int i = 0; i < filas; i++){
-    cout << i << "->|";
+    os << i << "->|";
     for(int j = 0; j < columnas; j++){
       casilla_actual = tablero.ValoresCasilla(i, j);
       if(!casilla_actual.abierta){
         if(!casilla_actual.marcada)
-          cout << " * |";
+          os << " * |";
         else
-          cout << " ? |";
+          os << " ? |";
       }
       else{
         if(casilla_actual.bomba)
-          cout <<" "<< SIMBOLO_BOMBA <<" |";
+          os <<" "<< SIMBOLO_BOMBA <<" |";
         else{
           bombas_entorno = this->NumeroBombasEntorno(i, j);
           if(bombas_entorno == 0)
-            cout << "   |";
+            os << "   |";
           else
-            cout << " " << bombas_entorno << " |";
+            os << " " << bombas_entorno << " |";
         }
       }
 
     }
-    cout << "\n";
+    os << "\n";
   }
 }
 

@@ -1,5 +1,6 @@
 #include "tablero.h"
 #include <iostream>
+#include <fstream>
 
 class CampoMinas{
 private:
@@ -32,7 +33,7 @@ public:
   bool AbreCasilla(const int &fila, const int &columna);
 
   //Imprime el tablero formateado a través de cout
-  void ImprimeTablero();
+  void ImprimeTablero(std::ostream& os = std::cout);
 
   //Imprime el tablero formateado a través de cout sin ocultar nada
   void ImprimeTableroSinOcultar();
