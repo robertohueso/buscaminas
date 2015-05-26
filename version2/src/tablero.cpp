@@ -73,7 +73,7 @@ Casilla Tablero::ValoresCasilla(const int &fila, const int &columna) const{
 bool Tablero::ModificaCasilla(const int &fila, const int &columna, const Casilla &casilla_nueva){
   //Devuelve true si la operación se completa correctamente,
   //false en caso contrario.
-  if((fila < filas && columna < columnas) && (fila >= 0 && columna >= 0)){
+  if(DentroDelTablero(fila, columna)){
     casillas[fila][columna] = casilla_nueva;
     return true;
   }

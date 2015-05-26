@@ -32,6 +32,7 @@ public:
   int Columnas() const;
 
   //Devuelve el objeto casilla en la posición correspondiente
+  //DEPRECATED!
   Casilla ValoresCasilla(const int &fila, const int &columna) const;
 
   //Modifica el valor de una casilla en la posición correspondiente
