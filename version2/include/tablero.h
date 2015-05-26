@@ -1,3 +1,5 @@
+#include <fstream>
+
 //Datos de tipo Casilla
 struct Casilla{
   bool abierta;
@@ -44,3 +46,8 @@ public:
   //Sobrecarga parentesis para ValorCasilla
   Casilla& operator()(const int &fila, const int &columna) const;
 };
+
+//Implementacion E/S
+
+//Flujo de salida con el estado de cada casilla
+ostream& operator<<(const Casilla &casilla_actual) const;
