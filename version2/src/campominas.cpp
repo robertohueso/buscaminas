@@ -43,7 +43,7 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   while(i < numero_minas){
     aleatorio_fila = rand()%tablero.Filas();
     aleatorio_columna = rand()%tablero.Columnas();
-    if(tablero.ValoresCasilla(aleatorio_fila,aleatorio_columna).bomba == false){
+    if(tablero(aleatorio_fila, aleatorio_columna).bomba == false){
       tablero.ModificaCasilla(aleatorio_fila, aleatorio_columna, casilla_default);
       i++;
     }
@@ -63,7 +63,7 @@ bool CampoMinas::ComprobarExplosion(){
 
   for(int i = 0; i < tablero.Filas(); i++){
     for(int j = 0; j < tablero.Columnas(); j++){
-      casilla_actual = tablero.ValoresCasilla(i, j);
+      casilla_actual = tablero(i, j);
       if(casilla_actual.bomba == true && casilla_actual.abierta == true)
         return true;
     }
@@ -76,7 +76,7 @@ bool CampoMinas::ComprobarPartidaGanada(){
 
   for(int i = 0; i < tablero.Filas(); i++){
     for(int j = 0; j < tablero.Columnas(); j++){
-      casilla_actual = tablero.ValoresCasilla(i, j);
+      casilla_actual = tablero(i, j);
       if(casilla_actual.abierta == false && casilla_actual.bomba == false)
         return false;
     }
@@ -85,7 +85,7 @@ bool CampoMinas::ComprobarPartidaGanada(){
 }
 
 bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
-  Casilla casilla_actual = tablero.ValoresCasilla(fila, columna);
+  Casilla casilla_actual = tablero(fila, columna);
   if(casilla_actual.abierta == false){
     if(casilla_actual.marcada == false){
       casilla_actual.marcada = true;
@@ -113,14 +113,14 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
     int f = pend->fila;
     int c = pend->columna;
     if(this->NumeroBombasEntorno(f,c) != 0){
-      casilla_abierta = tablero.ValoresCasilla(f,c);
+      casilla_abierta = tablero(f,c);
       casilla_abierta.abierta = true;
       tablero.ModificaCasilla(f, c, casilla_abierta);
       CeldaPosicion *aux = pend;
       pend = pend->siguiente_celda;
       delete aux;
     }else{
-      casilla_abierta = tablero.ValoresCasilla(f,c);
+      casilla_abierta = tablero(f,c);
       casilla_abierta.abierta = true;
       tablero.ModificaCasilla(f, c, casilla_abierta);
       CeldaPosicion *aux = pend;
@@ -128,7 +128,7 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
       delete aux;
       for(int i = f-1; i <= f+1; i++){
         for(int j = c-1; j <= c+1; j++){
-          if(tablero.DentroDelTablero(i,j) && (tablero.ValoresCasilla(i,j).abierta == false)){
+          if(tablero.DentroDelTablero(i,j) && (tablero(i,j).abierta == false)){
             CeldaPosicion *aux = new CeldaPosicion;
             aux->fila = i;
             aux->columna = j;
@@ -147,7 +147,7 @@ int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
 
   for(int i = fila-1; i <= fila+1; i++){
     for(int j = columna-1; j <= columna+1; j++){
-      if(tablero.DentroDelTablero(i,j) && tablero.ValoresCasilla(i, j).bomba == true){
+      if(tablero.DentroDelTablero(i,j) && tablero(i, j).bomba == true){
         numero_bombas++;
       }
     }
@@ -173,7 +173,7 @@ void CampoMinas::ImprimeTablero(std::ostream& os){
   for(int i = 0; i < filas; i++){
     os << i << "->|";
     for(int j = 0; j < columnas; j++){
-      casilla_actual = tablero.ValoresCasilla(i, j);
+      casilla_actual = tablero(i, j);
       if(!casilla_actual.abierta){
         if(!casilla_actual.marcada)
           os << " * |";
