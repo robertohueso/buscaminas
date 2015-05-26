@@ -67,19 +67,7 @@ int Tablero::Columnas() const{
 }
 
 Casilla Tablero::ValoresCasilla(const int &fila, const int &columna) const{
-  //Defino una casilla por defecto que será devuelta
-  //en caso de que los valores fila o columna
-  //no sean válidos.
-  Casilla casilla_default;
-  casilla_default.bomba = false;
-  casilla_default.abierta = false;
-  casilla_default.marcada = false;
-
-  //Devuelve la casilla
-  if((fila < filas && columna < columnas) && (fila >= 0 && columna >= 0))
-    return casillas[fila][columna];
-  else
-    return casilla_default;
+  return casillas[fila][columna];
 }
 
 bool Tablero::ModificaCasilla(const int &fila, const int &columna, const Casilla &casilla_nueva){
@@ -91,4 +79,15 @@ bool Tablero::ModificaCasilla(const int &fila, const int &columna, const Casilla
   }
   else
     return false;
+}
+
+bool Tablero::DentroDelTablero(const int &fila, const int &columna) const{
+  if(fila >= 0 && columna >= 0 && fila < filas && columna < columnas)
+    return true;
+  else
+    return false;
+}
+
+Casilla& Tablero::operator()(const int &fila, const int &columna) const{
+  return casillas[fila][columna];
 }

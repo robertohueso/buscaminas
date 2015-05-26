@@ -36,4 +36,10 @@ public:
 
   //Modifica el valor de una casilla en la posición correspondiente
   bool ModificaCasilla(const int &fila, const int &columna, const Casilla &casilla_nueva);
+
+  //Comprueba si un elemento está dentro del tablero
+  bool DentroDelTablero(const int &fila, const int &columna) const;
+
+  //Sobrecarga parentesis para ValorCasilla
+  Casilla& operator()(const int &fila, const int &columna) const;
 };

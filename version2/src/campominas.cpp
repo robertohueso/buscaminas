@@ -128,7 +128,7 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
       delete aux;
       for(int i = f-1; i <= f+1; i++){
         for(int j = c-1; j <= c+1; j++){
-          if((i >= 0) && (j >= 0) && (i < tablero.Filas()) && (j < tablero.Columnas()) && (tablero.ValoresCasilla(i,j).abierta == false)){
+          if(tablero.DentroDelTablero(i,j) && (tablero.ValoresCasilla(i,j).abierta == false)){
             CeldaPosicion *aux = new CeldaPosicion;
             aux->fila = i;
             aux->columna = j;
@@ -147,7 +147,7 @@ int CampoMinas::NumeroBombasEntorno(const int &fila, const int &columna){
 
   for(int i = fila-1; i <= fila+1; i++){
     for(int j = columna-1; j <= columna+1; j++){
-      if(tablero.ValoresCasilla(i, j).bomba == true){
+      if(tablero.DentroDelTablero(i,j) && tablero.ValoresCasilla(i, j).bomba == true){
         numero_bombas++;
       }
     }
@@ -211,7 +211,7 @@ void CampoMinas::ImprimeTableroSinOcultar(){
   for(int i = 0; i < filas; i++){
     cout << i << "->|";
     for(int j = 0; j < columnas; j++){
-      casilla_actual = tablero.ValoresCasilla(i, j);
+      casilla_actual = tablero(i,j);
         if(casilla_actual.bomba)
           cout << " " << SIMBOLO_BOMBA << " |";
         else{

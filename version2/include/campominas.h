@@ -9,7 +9,7 @@ private:
   //Devuelve la cantidad de bombas que hay en el entorno
   //de una casilla
   int NumeroBombasEntorno(const int &fila, const int &columna);
-
+  
 public:
   //Constructor del campo
   CampoMinas(const int &filas, const int &columnas, int numero_minas);
