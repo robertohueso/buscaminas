@@ -48,6 +48,7 @@ public:
 };
 
 //Implementacion E/S
-
+/*
 //Flujo de salida con el estado de cada casilla
-ostream& operator<<(const Casilla &casilla_actual) const;
+ostream& operator<<(ostream &os, const Casilla &casilla_actual) const;
+*/

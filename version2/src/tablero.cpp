@@ -91,7 +91,7 @@ bool Tablero::DentroDelTablero(const int &fila, const int &columna) const{
 Casilla& Tablero::operator()(const int &fila, const int &columna) const{
   return casillas[fila][columna];
 }
-
+/*
 std::ostream& operator<<(std::ostream &os, const Casilla &casilla_actual) const{
   if(casilla_actual.abierta)
     os << 1;
@@ -118,3 +118,4 @@ std::ostream& operator<<(std::ostream &os, const Tablero &tablero_actual) const{
       os << tablero(i,j) << ',';
   return os;
 }
+*/
