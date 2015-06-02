@@ -99,13 +99,15 @@ std::ostream& operator<<(std::ostream &os, const Casilla &casilla_actual){
   return os;
 }
 
-/*
-std::ostream& operator<<(std::ostream &os, const Tablero &tablero_actual) const{
-  os << tablero_actual.Filas() << '\n';
-  os << tablero_actual.Columnas() << '\n';
-  for(int i = 0; i < tablero_actual.Filas(); i++)
-    for(int j = 0; j < tablero_actual.Columnas(); j++)
-      os << tablero(i,j) << ',';
+std::ostream& operator<<(std::ostream &os, const Tablero &tablero_actual){
+  int filas, columnas;
+
+  filas = tablero_actual.Filas();
+  columnas = tablero_actual.Columnas();
+  os << filas << "\n";
+  os << columnas << "\n";
+  for(int i = 0; i < filas; i++)
+    for(int j = 0; j < columnas; j++)
+      os << tablero_actual(i,j);
   return os;
 }
-*/

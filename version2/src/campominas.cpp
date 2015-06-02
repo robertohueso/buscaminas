@@ -1,6 +1,7 @@
 #include "campominas.h"
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <ctime>
 
 using namespace std;

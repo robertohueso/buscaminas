@@ -51,3 +51,6 @@ public:
 
 //Flujo de salida con el estado de cada casilla
 std::ostream& operator<<(std::ostream &os, const Casilla &casilla_actual);
+
+//Flujo de salida con el estado de un tablero
+std::ostream& operator<<(std::ostream &os, const Tablero &tablero_actual);
