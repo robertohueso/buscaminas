@@ -6,7 +6,8 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char *argv[]){
+  const int TAM_MAX_NOMBRE = 100;
   int filas, columnas, cantidad_bombas;
   char accion;
 

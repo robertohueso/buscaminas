@@ -226,3 +226,16 @@ void CampoMinas::ImprimeTableroSinOcultar(){
     cout << "\n";
   }
 }
+
+bool CampoMinas::Escribir(const char *nombre_fichero){
+  std::ofstream fichero(nombre_fichero, ios::trunc | ios::out);
+  if(fichero){
+    fichero << "# MP−BUSCAMINAS−V1.0\n";
+    fichero << tablero;
+    fichero.close();
+    return true;
+  }
+  else{
+    return false;
+  }
+}

@@ -37,4 +37,7 @@ public:
 
   //Imprime el tablero formateado a través de cout sin ocultar nada
   void ImprimeTableroSinOcultar();
+
+  //Guarda el estado a un fichero
+  bool Escribir(const char *nombre_fichero);
 };
