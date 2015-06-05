@@ -40,20 +40,20 @@ Tablero::Tablero(const Tablero &tablero_input){
 //Sobrecarga del operador de asignacion
 Tablero& Tablero::operator=(const Tablero &tablero_input){
   //Vaciamos la memoria
-  for(int i = 0; i < this->columnas; i++)
-    delete[] this->casillas[i];
-  delete[] this->casillas;
+  for(int i = 0; i < columnas; i++)
+    delete[] casillas[i];
+  delete[] casillas;
 
   //Rellenamos con tablero_input
-  this->filas = tablero_input.Filas();
-  this->columnas = tablero_input.Columnas();
-  this->casillas = new Casilla*[filas];
+  filas = tablero_input.Filas();
+  columnas = tablero_input.Columnas();
+  casillas = new Casilla*[filas];
   for(int i = 0; i < columnas; i++)
     this->casillas[i] = new Casilla;
 
   for(int i = 0; i < filas; i++)
     for(int j = 0; j < columnas; j++)
-      this->casillas[i][j] = tablero_input.ValoresCasilla(i,j);
+      casillas[i][j] = tablero_input.ValoresCasilla(i,j);
 
   return *this;
 }
