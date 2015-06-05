@@ -20,7 +20,6 @@ int main(int argc, char *argv[]){
   CampoMinas tablero(filas, columnas, cantidad_bombas);
   tablero.ImprimeTablero();
   cout << "\n\n";
-  tablero.Escribir("hola.txt");
   tablero.Leer("hola.txt");
   tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){

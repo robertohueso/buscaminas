@@ -246,25 +246,28 @@ bool CampoMinas::Leer(const char *nombre_fichero){
   int fils, cols;
   char flujo[1000];
   fichero.getline(flujo, 1000);
-  if(*flujo != *MAGIC_STRING)
-    return false;
-  else{
-    fichero.getline(flujo, 1000);
-    fils = *flujo;
-    fichero.getline(flujo, 1000);
-    cols = *flujo;
-    Tablero tablero_nuevo(fils,cols);
-    fichero.width(1);
-    for(int i = 0; i < fils; i++){
-      for(int j = 0; j < cols; j++){
-        Casilla casilla_nueva;
-        casilla_nueva.abierta = fichero.peek();
-        casilla_nueva.bomba = fichero.peek();
-        casilla_nueva.marcada = fichero.peek();
-        tablero_nuevo.ModificaCasilla(i,j,casilla_nueva);
+  fichero >> fils;
+  fichero >> cols;
+  Tablero tablero_nuevo(fils,cols);
+  for(int i = 0; i < fils; i++){
+    for(int j = 0; j < cols; j++){
+      Casilla casilla_nueva;
+      char elemento_casilla;
+      bool cast_char_bool[3];
+      for(int z = 0; z < 3; z++){
+        fichero.width(1);
+        fichero >> elemento_casilla;
+        if(elemento_casilla == '0')
+          cast_char_bool[z] = false;
+        else
+          cast_char_bool[z] = true;
       }
+      casilla_nueva.abierta = cast_char_bool[0];
+      casilla_nueva.bomba =  cast_char_bool[1];
+      casilla_nueva.marcada = cast_char_bool[2];
+      tablero_nuevo.ModificaCasilla(i,j,casilla_nueva);
     }
-    tablero = tablero_nuevo;
-    return true;
   }
+  tablero = tablero_nuevo;
+  return true;
 }
