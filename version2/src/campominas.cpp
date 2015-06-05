@@ -8,6 +8,7 @@ using namespace std;
 
 //Símbolo UNICODE para una bomba.
 static const char *SIMBOLO_BOMBA = "💣";
+static const char *MAGIC_STRING = "#MP−BUSCAMINAS−V1.0";
 
 struct CeldaPosicion{
   int fila;
@@ -230,12 +231,40 @@ void CampoMinas::ImprimeTableroSinOcultar(){
 bool CampoMinas::Escribir(const char *nombre_fichero){
   std::ofstream fichero(nombre_fichero, ios::trunc | ios::out);
   if(fichero){
-    fichero << "# MP−BUSCAMINAS−V1.0\n";
+    fichero << MAGIC_STRING << "\n";
     fichero << tablero;
     fichero.close();
     return true;
   }
   else{
     return false;
+  }
+}
+
+bool CampoMinas::Leer(const char *nombre_fichero){
+  std::ifstream fichero(nombre_fichero, ios::in);
+  int fils, cols;
+  char flujo[1000];
+  fichero.getline(flujo, 1000);
+  if(*flujo != *MAGIC_STRING)
+    return false;
+  else{
+    fichero.getline(flujo, 1000);
+    fils = *flujo;
+    fichero.getline(flujo, 1000);
+    cols = *flujo;
+    Tablero tablero_nuevo(fils,cols);
+    fichero.width(1);
+    for(int i = 0; i < fils; i++){
+      for(int j = 0; j < cols; j++){
+        Casilla casilla_nueva;
+        casilla_nueva.abierta = fichero.peek();
+        casilla_nueva.bomba = fichero.peek();
+        casilla_nueva.marcada = fichero.peek();
+        tablero_nuevo.ModificaCasilla(i,j,casilla_nueva);
+      }
+    }
+    tablero = tablero_nuevo;
+    return true;
   }
 }

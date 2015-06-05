@@ -40,4 +40,7 @@ public:
 
   //Guarda el estado a un fichero
   bool Escribir(const char *nombre_fichero);
+
+  //Lee y carga el estado de un tablero
+  bool Leer(const char *nombre_fichero);
 };
