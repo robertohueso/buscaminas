@@ -2,36 +2,70 @@
 //Por Roberto Hueso Gomez
 
 #include <iostream>
+#include <cstdlib>
+#include <cstring>
 #include "campominas.h"
 
 using namespace std;
 
+const int TAM_MAX_LINEA = 100;
+
+bool AnalizaComando(char *texto, CampoMinas &tablero){
+  char *palabras[TAM_MAX_LINEA];
+  int i = 0;
+  int cuenta = 1;
+  palabras[0] = texto;
+  while(texto[i] != '\0'){
+    texto[i] = tolower(texto[i]);
+    if(isspace(texto[i])){
+      palabras[cuenta]= texto+i+1;
+      texto[i] = '\0';
+      cuenta++;
+    }
+    i++;
+  }
+
+  //Elecciones
+  if(strcmp(palabras[0],"a") == 0 || strcmp(palabras[0],"abrir") == 0)
+    tablero.AbreCasilla(atoi(palabras[1]),atoi(palabras[2]));
+  else if(strcmp(palabras[0],"m") == 0 || strcmp(palabras[0],"marcar") == 0)
+    tablero.MarcaCasilla(atoi(palabras[1]),atoi(palabras[2]));
+  else if(strcmp(palabras[0],"s") == 0 || strcmp(palabras[0],"salvar") == 0)
+    tablero.Escribir(palabras[1]);
+  else
+    cout << "Error, introduzca la orden de nuevo!\n";
+  return true;
+}
+
 int main(int argc, char *argv[]){
-  const int TAM_MAX_NOMBRE = 100;
   int filas, columnas, cantidad_bombas;
   char accion;
+  char comandos[TAM_MAX_LINEA];
+  CampoMinas tablero(5, 5, 5);
+  if(argc == 4){
+    filas = atoi(argv[1]);
+    columnas = atoi(argv[2]);
+    cantidad_bombas = atoi(argv[3]);
+    if(filas >= 4 && columnas >= 4 && cantidad_bombas > 0 && cantidad_bombas < (filas*columnas)){
+      CampoMinas tablero2(filas, columnas, cantidad_bombas);
+      tablero = tablero2;
+    }else
+      return 0;
+  }else if(argc == 2){
+    tablero.Leer(argv[1]);
+  }else{
+    cout << "Error! Introduzca 3 parámetros (filas, columnas, numero de minas)" <<
+            "o el nombre de un archivo con una partida guardada para iniciar" <<
+            "el juego";
+            return 0;
+  }
 
-  cout << "Introduzca la dimensión (Filas y columnas): ";
-  //Lee filas y columnas separadas por un espacio.
-  cin >> filas >> columnas;
-  cout << "Introduzca las minas: ";
-  cin >> cantidad_bombas;
-
-  CampoMinas tablero(filas, columnas, cantidad_bombas);
   tablero.ImprimeTablero();
   cout << "\n\n";
-  tablero.Leer("hola.txt");
   tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
-    cout << "Introduzca acción (a/m) y posición (fila columna): ";
-    cin >> accion >> filas >> columnas;
-
-    if(accion == 'm')
-      tablero.MarcaCasilla(filas,columnas);
-    else if(accion == 'a')
-      tablero.AbreCasilla(filas, columnas);
-    else
-      cout << "\n¡Comando no válido!\n";
+    cin.getline(comandos, TAM_MAX_LINEA);
+    AnalizaComando(comandos, tablero);
     tablero.ImprimeTablero();
   }
 

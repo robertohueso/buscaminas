@@ -12,8 +12,8 @@ Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
     columnas = 5;
   //Reserva memoria y crea la matriz de Casillas
   casillas = new Casilla*[filas];
-  for(int i = 0; i < columnas; i++)
-    casillas[i] = new Casilla;
+  for(int i = 0; i < filas; i++)
+    casillas[i] = new Casilla[columnas];
 }
 
 //Destructor
