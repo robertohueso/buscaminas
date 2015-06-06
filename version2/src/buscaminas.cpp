@@ -46,17 +46,17 @@ int main(int argc, char *argv[]){
     filas = atoi(argv[1]);
     columnas = atoi(argv[2]);
     cantidad_bombas = atoi(argv[3]);
-    if(filas >= 4 && columnas >= 4 && cantidad_bombas > 0 && cantidad_bombas < (filas*columnas)){
+    //if(filas >= 4 && columnas >= 4 && cantidad_bombas > 0 && cantidad_bombas < (filas*columnas)){
       CampoMinas tablero2(filas, columnas, cantidad_bombas);
       tablero = tablero2;
-    }else
-      return 0;
+    //}else
+      //return 0;
   }else if(argc == 2){
     tablero.Leer(argv[1]);
   }else{
-    cout << "Error! Introduzca 3 parámetros (filas, columnas, numero de minas)" <<
-            "o el nombre de un archivo con una partida guardada para iniciar" <<
-            "el juego";
+    cout << "Error! Introduzca 3 parámetros (filas, columnas, numero de minas) " <<
+            "o el nombre de un archivo con una partida guardada para iniciar " <<
+            "el juego \n";
             return 0;
   }
 

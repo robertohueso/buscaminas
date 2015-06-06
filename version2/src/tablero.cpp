@@ -29,8 +29,8 @@ Tablero::Tablero(const Tablero &tablero_input){
   columnas = tablero_input.Columnas();
 
   casillas = new Casilla*[filas];
-  for(int i = 0; i < columnas; i++)
-    casillas[i] = new Casilla;
+  for(int i = 0; i < filas; i++)
+    casillas[i] = new Casilla[columnas];
 
   for(int i = 0; i < filas; i++)
     for(int j = 0; j < columnas; j++)
@@ -48,8 +48,8 @@ Tablero& Tablero::operator=(const Tablero &tablero_input){
   filas = tablero_input.Filas();
   columnas = tablero_input.Columnas();
   casillas = new Casilla*[filas];
-  for(int i = 0; i < columnas; i++)
-    this->casillas[i] = new Casilla;
+  for(int i = 0; i < filas; i++)
+    this->casillas[i] = new Casilla[columnas];
 
   for(int i = 0; i < filas; i++)
     for(int j = 0; j < columnas; j++)
