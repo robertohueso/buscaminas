@@ -20,6 +20,7 @@ struct CeldaPosicion{
 CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   :tablero(filas, columnas)
 {
+  explosion = false;
   Casilla casilla_default;
   casilla_default.abierta = false;
   casilla_default.bomba = false;
@@ -62,16 +63,7 @@ int CampoMinas::Columnas(){
 }
 
 bool CampoMinas::ComprobarExplosion(){
-  Casilla casilla_actual;
-
-  for(int i = 0; i < tablero.Filas(); i++){
-    for(int j = 0; j < tablero.Columnas(); j++){
-      casilla_actual = tablero(i, j);
-      if(casilla_actual.bomba == true && casilla_actual.abierta == true)
-        return true;
-    }
-  }
-  return false;
+  return explosion;
 }
 
 bool CampoMinas::ComprobarPartidaGanada(){
@@ -119,6 +111,8 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
     if(casilla_abierta.marcada == false){
       casilla_abierta.abierta = true;
       tablero.ModificaCasilla(f, c, casilla_abierta);
+      if(casilla_abierta.bomba == true)
+        explosion = true;
     }
     CeldaPosicion *aux = pend;
     pend = pend->siguiente_celda;

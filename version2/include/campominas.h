@@ -6,19 +6,20 @@ class CampoMinas{
 private:
   Tablero tablero;
 
+  bool explosion;
   //Devuelve la cantidad de bombas que hay en el entorno
   //de una casilla
-  int NumeroBombasEntorno(const int &fila, const int &columna);
+  inline int NumeroBombasEntorno(const int &fila, const int &columna);
 
 public:
   //Constructor del campo
   CampoMinas(const int &filas, const int &columnas, int numero_minas);
 
   //Devuelve el numero de filas del campo
-  int Filas();
+  inline int Filas();
 
   //Devuelve el numero de columnas del campo
-  int Columnas();
+  inline int Columnas();
 
   //Comprueba si ha explotado alguna mina
   bool ComprobarExplosion();
