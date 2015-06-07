@@ -1,5 +1,6 @@
 #include "campominas.h"
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -182,7 +183,7 @@ void CampoMinas::ImprimeTablero(std::ostream& os){
         if(casilla_actual.bomba)
           os <<" "<< SIMBOLO_BOMBA <<" |";
         else{
-          bombas_entorno = this->NumeroBombasEntorno(i, j);
+          bombas_entorno = NumeroBombasEntorno(i, j);
           if(bombas_entorno == 0)
             os << "   |";
           else
@@ -213,7 +214,7 @@ void CampoMinas::ImprimeTableroSinOcultar(){
         if(casilla_actual.bomba)
           cout << " " << SIMBOLO_BOMBA << " |";
         else{
-          bombas_entorno = this->NumeroBombasEntorno(i, j);
+          bombas_entorno = NumeroBombasEntorno(i, j);
           if(bombas_entorno == 0)
             cout << "   |";
           else
@@ -241,7 +242,9 @@ bool CampoMinas::Leer(const char *nombre_fichero){
   std::ifstream fichero(nombre_fichero, ios::in);
   int fils, cols;
   char flujo[1000];
-  fichero.getline(flujo, 1000);
+  fichero >> flujo;
+  if(strcmp(flujo, MAGIC_STRING) != 0)
+    return false;
   fichero >> fils;
   fichero >> cols;
   Tablero tablero_nuevo(fils,cols);

@@ -58,7 +58,10 @@ int main(int argc, char *argv[]){
     }else
       return 0;
   }else if(argc == 2){
-    tablero.Leer(argv[1]);
+    if(!tablero.Leer(argv[1])){
+      cout << "Error al leer el archivo!\n";
+      return 0;
+    }
   }else{
     cout << "Error! Introduzca 3 parámetros (filas, columnas, numero de minas) " <<
             "o el nombre de un archivo con una partida guardada para iniciar " <<
