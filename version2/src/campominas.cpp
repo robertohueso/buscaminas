@@ -39,7 +39,7 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
 
   //Posiciona las minas aleatoriamente (Usa la librería ctime y cstdlib)
   int aleatorio_fila, aleatorio_columna, i;
-  srand(time(NULL));
+  srand(time(NULL));  //Inicializa el generador aleatorio
   casilla_default.bomba = true;
   i = 0;
   while(i < numero_minas){
@@ -114,23 +114,19 @@ bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
   while(pend != NULL){
     int f = pend->fila;
     int c = pend->columna;
-    if(this->NumeroBombasEntorno(f,c) != 0){
-      casilla_abierta = tablero(f,c);
+    casilla_abierta = tablero(f,c);
+    if(casilla_abierta.marcada == false){
       casilla_abierta.abierta = true;
       tablero.ModificaCasilla(f, c, casilla_abierta);
-      CeldaPosicion *aux = pend;
-      pend = pend->siguiente_celda;
-      delete aux;
-    }else{
-      casilla_abierta = tablero(f,c);
-      casilla_abierta.abierta = true;
-      tablero.ModificaCasilla(f, c, casilla_abierta);
-      CeldaPosicion *aux = pend;
-      pend = pend->siguiente_celda;
-      delete aux;
+    }
+    CeldaPosicion *aux = pend;
+    pend = pend->siguiente_celda;
+    delete aux;
+
+    if(NumeroBombasEntorno(f,c) == 0){
       for(int i = f-1; i <= f+1; i++){
         for(int j = c-1; j <= c+1; j++){
-          if(tablero.DentroDelTablero(i,j) && (tablero(i,j).abierta == false)){
+          if(tablero.DentroDelTablero(i,j) && (tablero(i,j).abierta == false) && tablero(i,j).marcada == false){
             CeldaPosicion *aux = new CeldaPosicion;
             aux->fila = i;
             aux->columna = j;
