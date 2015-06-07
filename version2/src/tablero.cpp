@@ -18,7 +18,7 @@ Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
 
 //Destructor
 Tablero::~Tablero(){
-  for(int i = 0; i < columnas; i++)
+  for(int i = 0; i < filas; i++)
     delete[] casillas[i];
   delete[] casillas;
 }
