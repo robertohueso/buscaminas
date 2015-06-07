@@ -12,15 +12,15 @@ Tablero::Tablero(const int &filas_utiles, const int &columnas_utiles){
     columnas = 5;
 }
 
-int Tablero::Filas(){
+int Tablero::Filas() const{
   return filas;
 }
 
-int Tablero::Columnas(){
+int Tablero::Columnas() const{
   return columnas;
 }
 
-Casilla Tablero::ValoresCasilla(const int &fila, const int &columna){
+Casilla Tablero::ValoresCasilla(const int &fila, const int &columna) const{
   //Defino una casilla por defecto que será devuelta
   //en caso de que los valores fila o columna
   //no sean válidos.

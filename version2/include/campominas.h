@@ -16,13 +16,13 @@ public:
   CampoMinas(const int &filas, const int &columnas, int numero_minas);
 
   //Devuelve el numero de filas del campo
-  inline int Filas();
+  inline int Filas() const;
 
   //Devuelve el numero de columnas del campo
-  inline int Columnas();
+  inline int Columnas() const;
 
   //Comprueba si ha explotado alguna mina
-  bool ComprobarExplosion();
+  bool ComprobarExplosion() const;
 
   //Comprueba si la partida se ha ganado
   bool ComprobarPartidaGanada();

@@ -54,15 +54,15 @@ CampoMinas::CampoMinas(const int &filas, const int &columnas, int numero_minas)
   }
 }
 
-int CampoMinas::Filas(){
+int CampoMinas::Filas() const{
   return tablero.Filas();
 }
 
-int CampoMinas::Columnas(){
+int CampoMinas::Columnas() const{
   return tablero.Columnas();
 }
 
-bool CampoMinas::ComprobarExplosion(){
+bool CampoMinas::ComprobarExplosion() const{
   return explosion;
 }
 
