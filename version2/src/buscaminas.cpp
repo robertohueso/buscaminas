@@ -1,5 +1,7 @@
 //Por Manuel Orantes Taboada
 //Por Roberto Hueso Gomez
+//Universidad de Granada - 2015 - Doble grado Informática y Matemáticas
+//----------------------------------------------------------------------
 
 #include <iostream>
 #include <cstdlib>
@@ -8,13 +10,14 @@
 
 using namespace std;
 
-const int TAM_MAX_LINEA = 100;
+static const int TAM_MAX_LINEA = 100;
 
+//Analiza la acción a tomar en cada caso
 bool AnalizaComando(char *texto, CampoMinas &tablero){
   char *palabras[TAM_MAX_LINEA];
   int i = 0;
-  int cuenta = 1;
   palabras[0] = texto;
+  int cuenta = 1;
   while(texto[i] != '\0'){
     texto[i] = tolower(texto[i]);
     if(isspace(texto[i])){
@@ -32,11 +35,14 @@ bool AnalizaComando(char *texto, CampoMinas &tablero){
     tablero.MarcaCasilla(atoi(palabras[1]),atoi(palabras[2]));
   else if(strcmp(palabras[0],"s") == 0 || strcmp(palabras[0],"salvar") == 0)
     tablero.Escribir(palabras[1]);
-  else
+  else{
     cout << "Error, introduzca la orden de nuevo!\n";
+    return false;
+  }
   return true;
 }
 
+//Programa principal
 int main(int argc, char *argv[]){
   int filas, columnas, cantidad_bombas;
   char accion;
@@ -46,11 +52,11 @@ int main(int argc, char *argv[]){
     filas = atoi(argv[1]);
     columnas = atoi(argv[2]);
     cantidad_bombas = atoi(argv[3]);
-    //if(filas >= 4 && columnas >= 4 && cantidad_bombas > 0 && cantidad_bombas < (filas*columnas)){
+    if(filas >= 4 && columnas >= 4 && cantidad_bombas > 0 && cantidad_bombas < (filas*columnas)){
       CampoMinas tablero2(filas, columnas, cantidad_bombas);
       tablero = tablero2;
-    //}else
-      //return 0;
+    }else
+      return 0;
   }else if(argc == 2){
     tablero.Leer(argv[1]);
   }else{
@@ -64,6 +70,7 @@ int main(int argc, char *argv[]){
   cout << "\n\n";
   tablero.ImprimeTableroSinOcultar();
   while(!tablero.ComprobarPartidaGanada() && !tablero.ComprobarExplosion()){
+    cout << "Introduzca comando: ";
     cin.getline(comandos, TAM_MAX_LINEA);
     AnalizaComando(comandos, tablero);
     tablero.ImprimeTablero();
@@ -76,4 +83,5 @@ int main(int argc, char *argv[]){
   }
   cout << "\n";
   tablero.ImprimeTableroSinOcultar();
+  return 0;
 }
