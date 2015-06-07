@@ -99,6 +99,8 @@ bool CampoMinas::MarcaCasilla(const int &fila, const int &columna){
 
 bool CampoMinas::AbreCasilla(const int &fila, const int &columna){
   Casilla casilla_abierta;
+  if(!tablero.DentroDelTablero(fila,columna))
+    return false;
   CeldaPosicion *pend = new CeldaPosicion;
   pend->fila = fila;
   pend->columna = columna;
